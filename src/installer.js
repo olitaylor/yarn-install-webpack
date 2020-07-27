@@ -32,7 +32,7 @@ module.exports.packageExists = function packageExists() {
   try {
     require.resolve(pkgPath);
     // Remove cached copy for future checks
-    delete require.cache[pkgPath];
+    // delete require.cache[pkgPath];
     return true;
   } catch (e) {
     return false;
@@ -205,11 +205,6 @@ module.exports.install = function install(deps, options) {
     this.install(peers, options);
     console.info("");
   }
-
-
-  setTimeout(() => {
-    console.log('wait right here..')
-  }, 5000)
 
   return output;
 };
