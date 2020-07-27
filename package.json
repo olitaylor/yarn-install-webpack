@@ -22,7 +22,7 @@
     "type": "git",
     "url": "git+https://github.com/olitaylor/webpack-install-webpack-plugin.git"
   },
-  "author": "Oliver Taylor <oliver@skyparksecure.com>",
+  "author": "Oliver Taylor <olivertaylor18@hotmail.co.uk>",
   "license": "MIT",
   "dependencies": {
     "cross-spawn": "^5.0.1",
