@@ -1,5 +1,5 @@
 {
-  "name": "yarn-install-webpack-plugin",
+  "name": "yarn-install-webpack",
   "version": "0.0.1",
   "description": "Webpack loader to automatically yarn install & save dependencies.",
   "main": "index.js",
@@ -17,10 +17,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/olitaylor/webpack-install-webpack-plugin.git"
+    "url": "git+https://github.com/olitaylor/yarn-install-webpack.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@olitaylor"
+    "registry": "https://npm.pkg.github.com/olitaylor"
   },
   "author": "Oliver Taylor <olivertaylor18@hotmail.co.uk>",
   "license": "MIT",
