@@ -27,7 +27,7 @@ will happen **automatically to install & save missing dependencies** while you w
 <h2 align="center">Install</h2>
 
 ```bash
-$ npm install --save-dev npm-install-webpack-plugin
+$ npm install --save-dev yarn-install-webpack-plugin
 ```
 
 <h2 align="center">Usage</h2>
@@ -36,7 +36,7 @@ In your `webpack.config.js`:
 
 ```js
 plugins: [
-  new NpmInstallPlugin()
+  new YarnInstallPlugin()
 ],
 ```
 
@@ -44,7 +44,7 @@ plugins: [
 
 ```js
 plugins: [
-  new NpmInstallPlugin({
+  new YarnInstallPlugin({
     // Use --save or --save-dev
     dev: false,
     // Install missing peerDependencies
@@ -61,7 +61,7 @@ You can provide a `Function` to the `dev` to make it dynamic:
 
 ```js
 plugins: [
-  new NpmInstallPlugin({
+  new YarnInstallPlugin({
     dev: function(module, path) {
       return [
         "babel-preset-react-hmre",
@@ -75,7 +75,7 @@ plugins: [
 
 <h2 align="center">Demo</h2>
 
-![npm-install-webpack-plugin demo](https://cloud.githubusercontent.com/assets/15182/12540538/6a4e8f1a-c2d0-11e5-97ee-4ddaf6892645.gif)
+![yarn-install-webpack-plugin demo](https://cloud.githubusercontent.com/assets/15182/12540538/6a4e8f1a-c2d0-11e5-97ee-4ddaf6892645.gif)
 
 <h2 align="center">Features</h2>
 
@@ -98,39 +98,3 @@ plugins: [
 - [x] Supports Webpack's `resolve.alias` & `resolve.root` configuration.
   (e.g. `require("react")` can alias to `react-lite`)
 
-<h2 align="center">Maintainers</h2>
-
-<table>
-  <tbody>
-    <tr>
-      <td align="center">
-        <img width="150" height="150"
-        src="https://avatars2.githubusercontent.com/u/15182?v=3&s=150">
-        </br>
-        <a href="https://github.com/ericclemmons">Eric Clemmons</a>
-      </td>
-      <td align="center">
-        <img width="150" height="150"
-        src="https://avatars3.githubusercontent.com/u/226692?v=3&s=150">
-        </br>
-        <a href="https://github.com/insin">Jonny Buchanan</a>
-      </td>
-    </tr>
-  <tbody>
-</table>
-
-
-[npm]: https://img.shields.io/npm/v/npm-install-webpack-plugin.svg
-[npm-url]: https://npmjs.com/package/npm-install-webpack-plugin
-
-[deps]: https://david-dm.org/webpack-contrib/npm-install-webpack-plugin.svg
-[deps-url]: https://david-dm.org/webpack-contrib/npm-install-webpack-plugin
-
-[chat]: https://img.shields.io/badge/gitter-webpack%2Fwebpack-brightgreen.svg
-[chat-url]: https://gitter.im/webpack/webpack
-
-[test]: https://travis-ci.org/webpack-contrib/npm-install-webpack-plugin.svg?branch=master
-[test-url]: https://travis-ci.org/webpack-contrib/npm-install-webpack-plugin
-
-[cover]: https://codecov.io/gh/webpack-contrib/npm-install-webpack-plugin/branch/master/graph/badge.svg
-[cover-url]: https://codecov.io/gh/webpack-contrib/npm-install-webpack-plugin

@@ -28,7 +28,7 @@ var depFromErr = function (err) {
   return matches[1];
 };
 
-function NpmInstallPlugin(options) {
+function YarnInstallPlugin(options) {
   this.preCompiler = null;
   this.compiler = null;
   this.options = Object.assign(installer.defaultOptions, options);
@@ -37,7 +37,7 @@ function NpmInstallPlugin(options) {
   installer.checkBabel();
 }
 
-NpmInstallPlugin.prototype.apply = function (compiler) {
+YarnInstallPlugin.prototype.apply = function (compiler) {
   this.compiler = compiler;
 
   // Recursively install missing dependencies so primary build doesn't fail
@@ -60,7 +60,7 @@ NpmInstallPlugin.prototype.apply = function (compiler) {
   );
 };
 
-NpmInstallPlugin.prototype.install = function (result) {
+YarnInstallPlugin.prototype.install = function (result) {
   if (!result) {
     return;
   }
@@ -78,7 +78,7 @@ NpmInstallPlugin.prototype.install = function (result) {
   }
 };
 
-NpmInstallPlugin.prototype.preCompile = function (compilation, next) {
+YarnInstallPlugin.prototype.preCompile = function (compilation, next) {
   if (!this.preCompiler) {
     var options = this.compiler.options;
     var config = Object.assign(
@@ -90,7 +90,7 @@ NpmInstallPlugin.prototype.preCompile = function (compilation, next) {
         // Ensure fresh cache
         cache: {},
         // Register plugin to install missing deps
-        plugins: [new NpmInstallPlugin(this.options)],
+        plugins: [new YarnInstallPlugin(this.options)],
       }
     );
 
@@ -101,7 +101,7 @@ NpmInstallPlugin.prototype.preCompile = function (compilation, next) {
   this.preCompiler.run(next);
 };
 
-NpmInstallPlugin.prototype.resolveExternal = function (
+YarnInstallPlugin.prototype.resolveExternal = function (
   context,
   request,
   callback
@@ -135,7 +135,7 @@ NpmInstallPlugin.prototype.resolveExternal = function (
   );
 };
 
-NpmInstallPlugin.prototype.resolve = function (resolver, result, callback) {
+YarnInstallPlugin.prototype.resolve = function (resolver, result, callback) {
   var version = require("webpack/package.json").version;
   var major = version.split(".").shift();
 
@@ -159,7 +159,7 @@ NpmInstallPlugin.prototype.resolve = function (resolver, result, callback) {
   throw new Error("Unsupported Webpack version: " + version);
 };
 
-NpmInstallPlugin.prototype.resolveLoader = function (result, next) {
+YarnInstallPlugin.prototype.resolveLoader = function (result, next) {
   // Only install direct dependencies, not sub-dependencies
   if (result.path.match("node_modules")) {
     return next();
@@ -187,7 +187,7 @@ NpmInstallPlugin.prototype.resolveLoader = function (result, next) {
   );
 };
 
-NpmInstallPlugin.prototype.resolveModule = function (result, next) {
+YarnInstallPlugin.prototype.resolveModule = function (result, next) {
   // Only install direct dependencies, not sub-dependencies
   if (result.path.match("node_modules")) {
     return next();
@@ -214,4 +214,4 @@ NpmInstallPlugin.prototype.resolveModule = function (result, next) {
   );
 };
 
-module.exports = NpmInstallPlugin;
+module.exports = YarnInstallPlugin;

@@ -1,5 +1,5 @@
 {
-  "name": "yarn-install-webpack-plugin",
+  "name": "yarn-install-missing-deps",
   "version": "0.0.1",
   "description": "Webpack loader to automatically yarn install & save dependencies.",
   "main": "index.js",
@@ -16,7 +16,7 @@
     "test:watch": "cross-env NODE_ENV=test mocha --watch"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/@olitaylor"
   },
   "repository": {
     "type": "git",

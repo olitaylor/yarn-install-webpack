@@ -1,4 +1,4 @@
-var NpmInstallPlugin = require("npm-install-webpack-plugin");
+var YarnInstallPlugin = require("npm-install-webpack-plugin");
 var path = require("path");
 
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
   },
 
   plugins: [
-    new NpmInstallPlugin({
+    new YarnInstallPlugin({
       dev: function(module, path) {
         return [
           "babel-preset-react-hmre",
