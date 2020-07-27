@@ -15,12 +15,12 @@
     "test": "cross-env NODE_ENV=test nyc mocha",
     "test:watch": "cross-env NODE_ENV=test mocha --watch"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/olitaylor/webpack-install-webpack-plugin.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@olitaylor"
   },
   "author": "Oliver Taylor <olivertaylor18@hotmail.co.uk>",
   "license": "MIT",
