@@ -12,7 +12,7 @@ var defaultOptions = {
   dev: false,
   peerDependencies: true,
   quiet: false,
-  npm: "npm",
+  npm: "yarn",
 };
 var erroneous = [];
 
