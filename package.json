@@ -1,6 +1,6 @@
 {
-  "name": "yarn-install-webpack",
-  "version": "0.0.1",
+  "name": "@olitaylor/yarn-install-webpack",
+  "version": "0.0.2",
   "description": "Webpack loader to automatically yarn install & save dependencies.",
   "main": "index.js",
   "engines": {
@@ -39,6 +39,6 @@
     "webpack": "^3.0.0"
   },
   "peerDependencies": {
-    "webpack": "^1.0.0 || ^2.0.0 || >= 3.0.0-rc.0 || ^3.0.0"
+    "webpack": "^4.0.0"
   }
 }

@@ -40,24 +40,41 @@ function YarnInstallPlugin(options) {
 YarnInstallPlugin.prototype.apply = function (compiler) {
   this.compiler = compiler;
 
+  var plugin = { name: "YarnInstallPlugin" };
+
   // Recursively install missing dependencies so primary build doesn't fail
-  compiler.plugin("watch-run", this.preCompile.bind(this));
+  compiler.hooks.watchRun.tapAsync(plugin, this.preCompile.bind(this));
 
   // Install externals that wouldn't normally be resolved
   if (Array.isArray(compiler.options.externals)) {
     compiler.options.externals.unshift(this.resolveExternal.bind(this));
   }
 
-  compiler.plugin(
-    "after-resolvers",
-    function (compiler) {
-      // Install loaders on demand
-      compiler.resolvers.loader.plugin("module", this.resolveLoader.bind(this));
+  compiler.hooks.afterResolvers.tap(plugin, (compiler) => {
+    // Install loaders on demand
+    compiler.resolverFactory.hooks.resolver.tap(
+      "loader",
+      plugin,
+      (resolver) => {
+        resolver.hooks.module.tapAsync(
+          "YarnInstallPlugin",
+          this.resolveLoader.bind(this)
+        );
+      }
+    );
 
-      // Install project dependencies on demand
-      compiler.resolvers.normal.plugin("module", this.resolveModule.bind(this));
-    }.bind(this)
-  );
+    // Install project dependencies on demand
+    compiler.resolverFactory.hooks.resolver.tap(
+      "normal",
+      plugin,
+      (resolver) => {
+        resolver.hooks.module.tapAsync(
+          "YarnInstallPlugin",
+          this.resolveModule.bind(this)
+        );
+      }
+    );
+  });
 };
 
 YarnInstallPlugin.prototype.install = function (result) {
@@ -139,27 +156,20 @@ YarnInstallPlugin.prototype.resolve = function (resolver, result, callback) {
   var version = require("webpack/package.json").version;
   var major = version.split(".").shift();
 
-  if (major === "1") {
-    return this.compiler.resolvers[resolver].resolve(
-      result.path,
-      result.request,
-      callback
-    );
-  }
-
-  if (major === "2" || major === "3") {
-    return this.compiler.resolvers[resolver].resolve(
-      result.context || {},
-      result.path,
-      result.request,
-      callback
-    );
+  if (major === "4") {
+    return this.compiler.resolverFactory
+      .get(resolver)
+      .resolve(result.context || {}, result.path, result.request, {}, callback);
   }
 
   throw new Error("Unsupported Webpack version: " + version);
 };
 
-YarnInstallPlugin.prototype.resolveLoader = function (result, next) {
+YarnInstallPlugin.prototype.resolveLoader = function (
+  result,
+  resolveContext,
+  next
+) {
   // Only install direct dependencies, not sub-dependencies
   if (result.path.match("node_modules")) {
     return next();
@@ -187,7 +197,11 @@ YarnInstallPlugin.prototype.resolveLoader = function (result, next) {
   );
 };
 
-YarnInstallPlugin.prototype.resolveModule = function (result, next) {
+YarnInstallPlugin.prototype.resolveModule = function (
+  result,
+  resolveContext,
+  next
+) {
   // Only install direct dependencies, not sub-dependencies
   if (result.path.match("node_modules")) {
     return next();
