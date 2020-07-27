@@ -206,5 +206,10 @@ module.exports.install = function install(deps, options) {
     console.info("");
   }
 
+
+  setTimeout(() => {
+    console.log('wait right here..')
+  }, 5000)
+
   return output;
 };
